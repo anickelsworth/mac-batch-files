@@ -1,0 +1,4 @@
+#/Applications/ffmpeg -f concat -i /Users/DavidMac/Documents/Batch\ Files/MoviesToConcat.txt -codec copy '/Users/DavidMac/Desktop/LOTR-The Fellowship of the Ring.m4v'
+
+file '/Users/DavidMac/Desktop/Fellowship-ext-d1.m4v'
+file '/Users/DavidMac/Desktop/Fellowship-ext-d2.m4v'

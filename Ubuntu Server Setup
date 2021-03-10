@@ -1,0 +1,124 @@
+Set up the server:
+- boot to server flash drive and install with all default prompts
+- sudo apt update (refresh the package lists)
+- sudo apt upgrade (upgrade any packages skipped during install)
+- sudo reboot (reboot for all to take effect)
+
+After setting up the server:
+- Set the date and time if needed
+  - timedatectl (to check the current time/zone)
+  - sudo timedatectl set-timezone America/New_York (to set the new timezone)
+  - date -s "19 APR 2012 11:14:00" (if needed to reset the date and time)
+
+- Mount any permanent data drives (https://linuxize.com/post/how-to-mount-and-unmount-file-systems-in-linux/)
+  - cd /media
+  - sudo mkdir /<drive name or reference name>
+  - sudo fdisk -l (to list drives and find the drive reference)
+  - sudo mount /dev/sdb1 /media/<drive name or reference name>
+  - if this works successfully, should be able to CD to the drive (cd /media/<drive name or reference name>)
+  - sudo nano /etc/fstab to add the mount permanently
+    - add a line with the following: /dev/<drive identifier> /media/<drive name or reference name> ext4 defaults 0 0
+
+- Set up mount capability for usb drives
+  - cd /media
+  - mkdir /usb
+  - sudo mount /dev/<usb drive identifier> /media/usb
+
+- Install samba to be able to connect through Mac Finder
+  - https://ubuntu.com/tutorials/install-and-configure-samba#1-overview
+
+- Install Plex Media server
+  - https://linuxize.com/post/how-to-install-plex-media-server-on-ubuntu-18-04/
+
+- Install HandbrakeCLI to read DVDs
+  - https://handbrake.fr/docs/en/latest/get-handbrake/download-and-install.html
+
+- Install libdvdss to read DVDs
+  - https://itsfoss.com/play-dvd-ubuntu-1310/
+
+- Install wget, curl and net-tools
+  - sudo apt install curl
+  - sudo apt install wget
+  - sudo apt install net-tools
+
+- Install genisoimage to read from ISO images
+  - sudo apt install genisoimage
+
+- Install Web Browser for basic browsing (https://vitux.com/four-web-browsers-for-the-linux-command-line/)
+  - sudo apt-get install w3m w3m-img
+  - w3m -version  (To test the install)
+  - w3m www.google.com (example of browsing a site)
+
+- Install Rclone for connection to cloud storage locations
+  - https://rclone.org/install/ (to install)
+  - https://rclone.org/drive/ (to configure)
+  - https://rclone.org/remote_setup/ (to configure without browser)
+
+	List directories in top level of your drive
+	rclone lsd remote:
+
+	List all the files in your drive
+	rclone ls remote:
+
+	To copy a local directory to a drive directory called backup
+	rclone copy /home/source remote:backup
+
+- Add keyboard bindings to set up key commands for CLI editing
+  - https://github.com/fkchang/emacs-keybindings-in-osx/blob/master/DefaultKeybinding.dict
+
+- Install packages that allow formatting of drives in ExFAT
+  - sudo apt-get install exfat-utils exfat-fuse
+
+
+
+
+Set up aliases and other commands in .bashrc
+===================================================
+
+Set up a default text editor in .bashrc
+  - export EDITOR='vim'
+  - export VISUAL='vim'
+
+alias readdvd='rm ~/nohup.out; nohup sh /media/NAS2TB/Documents/BatchFiles/ExtractMainFeature.sh < /dev/null &'
+alias readepisodes='rm ~/nohup.out; nohup sh /media/NAS2TB/Documents/BatchFiles/ExtractAllTracksFromDVD.sh < /dev/null &'
+alias dvdlog='tail -f ~/nohup.out'
+alias movies='cd /media/NAS2TB/Full-Length\ Movies'
+alias listturds='find . -type f \( -iname "._*" ! -iname "*DS_store*" \) -print'
+alias flushturds='find . -type f \( -iname "._*" ! -iname "*DS_store*" \) -delete'
+alias media='cd /media/NAS2TB'
+alias checkjobs='ps -aux | grep `whoami`'
+alias top10='ls -lt | head -10'
+alias mountusb='sudo mount /dev/sdg1 /media/usb -o umask=000'
+alias unmountusb='sudo umount /media/usb'
+alias lusb='ll /media/usb'
+alias copymovies='nohup find *.m4v -size -100M -exec cp -r {} /media/usb/ \; < /dev/null &'
+alias ytdl='sh /Users/davidmac/Documents/Batch\ Files/yt_download.sh'
+
+
+List helpful commands at the end of the login process
+  - cat .bashreminders
+
+Set up file with reminder commands (vim .bashreminders) 
+===========================================================
+CNTL-K - kills text to the end of line (COPY)
+CNTL-U - kills text to the beginning of line (COPY)
+CNTL-Y - pastes text that was copied
+CNTL-W - delete a word to the left
+sudo !! - repeats the last command with sudo in front
+CNTL-x-e - while typing a command, this will open up text editor to format nicely
+Use 'less +F' to view logfiles, instead of 'tail' (ctrl-c, shift-f, q to quit)
+
+
+
+
+======================================
+======================================
+======================================
+=====   FIXING ERRORS             ====
+======================================
+======================================
+======================================
+Server boots to a GUI - reset the symbolic link to specify booting to console
+	sudo systemctl set-default multi-user.target
+
+

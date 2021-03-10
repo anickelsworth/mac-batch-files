@@ -1,0 +1,13 @@
+#--Check the status of the computer disk drives. Find the one that is DVD (e.g. may be /dev/disk1)
+#drutil status
+diskutil list
+
+#--Unmount the DVD - make sure to change the disk reference 
+#diskutil unmountDisk /dev/disk2
+sudo umount /dev/disk2
+
+#--Extract the DVD and write to an ISO file
+hdiutil burn /Users/DavidMac/Desktop/lubuntu-16.10-desktop-i386.iso
+
+#--Validate the file
+#hdid ~/Desktop/Argo.iso
