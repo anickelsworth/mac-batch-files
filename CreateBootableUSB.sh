@@ -4,6 +4,6 @@ diskutil list
 
 diskutil unmountDisk /dev/disk2
 
-sudo dd if=/Users/DavidMac/Desktop/Win10_1803_English_x32.iso of=/dev/disk2 bs=1m
+sudo dd if=/Users/DavidMac/Downloads/ubuntu-20.04.3-desktop-amd64.iso of=/dev/disk2 bs=1m
 
 diskutil eject /dev/disk2
