@@ -30,6 +30,9 @@ After setting up the server:
 - Install Plex Media server
   - https://linuxize.com/post/how-to-install-plex-media-server-on-ubuntu-18-04/
 
+- Install JellyFin Media server
+  - https://www.linuxbabe.com/ubuntu/install-jellyfin-media-server-ubuntu-20-04
+
 - Install HandbrakeCLI to read DVDs
   - https://handbrake.fr/docs/en/latest/get-handbrake/download-and-install.html
 
